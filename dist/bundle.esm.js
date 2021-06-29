@@ -1,3 +1,18 @@
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
   try {
     var info = gen[key](arg);
@@ -832,7 +847,6 @@ var Eth = /*#__PURE__*/function () {
   function Eth(muon) {
     _classCallCheck(this, Eth);
 
-    console.log(muon);
     this.muon = muon;
   }
 
@@ -849,7 +863,6 @@ var Eth = /*#__PURE__*/function () {
         },
         nSign: this.muon.nSign
       };
-      console.log('AddBridgeToken Data', data);
       return this.muon.request(data);
     }
   }, {
@@ -873,7 +886,6 @@ var Eth = /*#__PURE__*/function () {
         },
         nSign: this.muon.nSign
       };
-      console.log('call Contract data', data);
       return this.muon.request(data);
     }
   }]);
@@ -18382,14 +18394,16 @@ var Api = /*#__PURE__*/function () {
   return Api;
 }();
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 var Muon = /*#__PURE__*/function () {
   function Muon(url, nSign) {
     _classCallCheck(this, Muon);
 
-    console.log(url, nSign);
     this.BASE_URL = url;
     this.nSign = nSign ? nSign : 2;
-    console.log(this);
     this.apps = {
       eth: new Eth(this)
     };
@@ -18399,33 +18413,39 @@ var Muon = /*#__PURE__*/function () {
     key: "request",
     value: function () {
       var _request = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(dataInfo) {
-        var apiInstance, muonResponse, data;
+        var _data$result, _data$result$signatur, apiInstance, muonResponse, data, signatures;
+
         return regenerator.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                _context.prev = 0;
                 apiInstance = new Api();
-                console.log({
-                  dataInfo: dataInfo
-                });
                 _context.next = 4;
                 return apiInstance.post(this.BASE_URL, dataInfo);
 
               case 4:
                 muonResponse = _context.sent;
                 data = muonResponse.data;
-                console.log({
-                  muonResponse: muonResponse
-                }); // let signatures = data.result.signatures.map((s) => s.signature)
-
+                signatures = (_data$result = data.result) === null || _data$result === void 0 ? void 0 : (_data$result$signatur = _data$result.signatures) === null || _data$result$signatur === void 0 ? void 0 : _data$result$signatur.map(function (s) {
+                  return s.signature;
+                });
+                data = _objectSpread(_objectSpread({}, data), {}, {
+                  signatures: signatures
+                });
                 return _context.abrupt("return", data);
 
-              case 8:
+              case 11:
+                _context.prev = 11;
+                _context.t0 = _context["catch"](0);
+                return _context.abrupt("return", _context.t0.message);
+
+              case 14:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this);
+        }, _callee, this, [[0, 11]]);
       }));
 
       function request(_x) {
@@ -18439,4 +18459,4 @@ var Muon = /*#__PURE__*/function () {
   return Muon;
 }();
 
-export { Muon };
+export default Muon;

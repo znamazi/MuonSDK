@@ -1,6 +1,6 @@
 import React from 'react'
 // import { GetData } from 'muon'
-import { Muon } from 'muon'
+import Muon from 'muon'
 
 function App() {
   const [result, setResult] = React.useState([])
@@ -8,7 +8,6 @@ function App() {
 
   React.useEffect(() => {
     const fetchData = async () => {
-      console.log({ Muon })
       // const result = await GetData()
       const MuonBridge_ABI = [
         {

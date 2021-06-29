@@ -1,5 +1,5 @@
 const express = require('express')
-const { Muon } = require('muon')
+const Muon = require('muon')
 
 const port = 3050
 const app = express()

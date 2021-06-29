@@ -1,6 +1,5 @@
 class Eth {
   constructor(muon) {
-    console.log(muon)
     this.muon = muon
   }
   addBridgeToken(mainTokenAddress, mainNetwork, targetNetwork) {
@@ -14,7 +13,6 @@ class Eth {
       },
       nSign: this.muon.nSign
     }
-    console.log('AddBridgeToken Data', data)
     return this.muon.request(data)
   }
   callContract(contractAddress, method, params, ABI, network) {
@@ -34,7 +32,6 @@ class Eth {
       },
       nSign: this.muon.nSign
     }
-    console.log('call Contract data', data)
     return this.muon.request(data)
   }
 }

@@ -18,7 +18,8 @@ const serverConfig = {
   output: [
     {
       file: `${dist}/${bundle}.cjs.js`,
-      format: 'cjs'
+      format: 'cjs',
+      exports: 'auto'
     }
   ],
   plugins: [
