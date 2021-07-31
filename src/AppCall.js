@@ -10,7 +10,7 @@ class AppCall {
       params: {
         ...params
       },
-      nSign: this.nSign
+      nSign: this.muon.nSign
     }
     return this
   }

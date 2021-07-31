@@ -882,7 +882,7 @@ var AppCall = /*#__PURE__*/function () {
         app: this.app,
         method: _method,
         params: _objectSpread$1({}, params),
-        nSign: this.nSign
+        nSign: this.muon.nSign
       };
       return this;
     }
@@ -18485,33 +18485,29 @@ var Muon = /*#__PURE__*/function () {
 
               case 4:
                 muonResponse = _context.sent;
-                console.log(muonResponse);
                 data = muonResponse.data;
-                console.log(data);
                 _reqId = "0x".concat((_data$result = data.result) === null || _data$result === void 0 ? void 0 : _data$result.cid.substr(1));
-                console.log(_reqId);
                 signatures = (_data$result2 = data.result) === null || _data$result2 === void 0 ? void 0 : (_data$result2$signatu = _data$result2.signatures) === null || _data$result2$signatu === void 0 ? void 0 : _data$result2$signatu.map(function (s) {
                   return s.signature;
                 }).sort();
-                console.log(signatures);
                 data = _objectSpread(_objectSpread({}, data), {}, {
                   signatures: signatures,
                   _reqId: _reqId
                 });
                 return _context.abrupt("return", data);
 
-              case 16:
-                _context.prev = 16;
+              case 12:
+                _context.prev = 12;
                 _context.t0 = _context["catch"](0);
                 console.log('error happend in request muon', _context.t0);
                 return _context.abrupt("return", _context.t0.message);
 
-              case 20:
+              case 16:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 16]]);
+        }, _callee, this, [[0, 12]]);
       }));
 
       function request(_x) {
