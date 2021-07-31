@@ -5,7 +5,7 @@ class Api {
   constructor() {
     this.client = axios.create({
       baseURL: 'https://jsonplaceholder.typicode.com/',
-      timeout: 5000,
+      timeout: 60000,
       headers: { 'X-Custom-Header': 'foobar' }
     })
   }

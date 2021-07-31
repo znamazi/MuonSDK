@@ -830,6 +830,59 @@ try {
 
 var regenerator = runtime_1;
 
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+var AppCall = /*#__PURE__*/function () {
+  function AppCall(muon, app) {
+    _classCallCheck(this, AppCall);
+
+    this.muon = muon;
+    this.app = app;
+  }
+
+  _createClass(AppCall, [{
+    key: "method",
+    value: function method(_method, _ref) {
+      var params = _extends({}, _ref);
+
+      this.data = {
+        app: this.app,
+        method: _method,
+        params: _objectSpread$1({}, params),
+        nSign: this.nSign
+      };
+      return this;
+    }
+  }, {
+    key: "call",
+    value: function call() {
+      return this.muon.request(this.data);
+    }
+  }]);
+
+  return AppCall;
+}();
+
 var Eth = /*#__PURE__*/function () {
   function Eth(muon) {
     _classCallCheck(this, Eth);
@@ -945,10 +998,16 @@ var Muon = /*#__PURE__*/function () {
   }
 
   _createClass(Muon, [{
+    key: "app",
+    value: function app(_app) {
+      var appCall = new AppCall(this, _app);
+      return appCall;
+    }
+  }, {
     key: "request",
     value: function () {
       var _request = _asyncToGenerator( /*#__PURE__*/regenerator.mark(function _callee(dataInfo) {
-        var _data$result, _data$result$signatur, apiInstance, muonResponse, data, signatures;
+        var _data$result, _data$result2, _data$result2$signatu, apiInstance, muonResponse, data, _reqId, signatures;
 
         return regenerator.wrap(function _callee$(_context) {
           while (1) {
@@ -962,25 +1021,27 @@ var Muon = /*#__PURE__*/function () {
               case 4:
                 muonResponse = _context.sent;
                 data = muonResponse.data;
-                signatures = (_data$result = data.result) === null || _data$result === void 0 ? void 0 : (_data$result$signatur = _data$result.signatures) === null || _data$result$signatur === void 0 ? void 0 : _data$result$signatur.map(function (s) {
+                _reqId = "0x".concat((_data$result = data.result) === null || _data$result === void 0 ? void 0 : _data$result.cid.substr(1));
+                signatures = (_data$result2 = data.result) === null || _data$result2 === void 0 ? void 0 : (_data$result2$signatu = _data$result2.signatures) === null || _data$result2$signatu === void 0 ? void 0 : _data$result2$signatu.map(function (s) {
                   return s.signature;
-                });
+                }).sort();
                 data = _objectSpread(_objectSpread({}, data), {}, {
-                  signatures: signatures
+                  signatures: signatures,
+                  _reqId: _reqId
                 });
                 return _context.abrupt("return", data);
 
-              case 11:
-                _context.prev = 11;
+              case 12:
+                _context.prev = 12;
                 _context.t0 = _context["catch"](0);
                 return _context.abrupt("return", _context.t0.message);
 
-              case 14:
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 11]]);
+        }, _callee, this, [[0, 12]]);
       }));
 
       function request(_x) {
